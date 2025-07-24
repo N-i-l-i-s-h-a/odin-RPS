@@ -24,3 +24,34 @@ function getHumanChoice(){
         return getHumanChoice();
     }
 }
+
+function playRound(){
+    const hum = getHumanChoice();
+    const com = getComputerChoice();
+    let scoreH = 0, scoreC = 0;
+    if(hum === com){
+        scoreC++; scoreH++;
+    }
+    else if(hum === "Rock"){
+        if(com === "Scissors")
+            scoreH++;
+        
+        else if(com === "Paper")
+            scoreC++; 
+    }
+    else if(hum === "Paper"){
+        if(com === "Rock")
+            scoreH++;
+        
+        else if(com === "Scissors")
+            scoreC++;
+    }
+    else if(hum === "Scissors"){
+        if(com === "Paper")
+            scoreH++;
+        
+        else if(com === "Rock")
+            scoreC++;
+    }
+    return getScore(scoreH, scoreC, hum, com);
+}
