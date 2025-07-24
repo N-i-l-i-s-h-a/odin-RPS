@@ -55,3 +55,19 @@ function playRound(){
     }
     return getScore(scoreH, scoreC, hum, com);
 }
+
+function getScore(scoreH, scoreC, hum, com) {
+    if(scoreH > scoreC){
+        console.log(`You win! ${hum} beats ${com}.`);
+        alert(`You win! ${hum} beats ${com}.`);
+    }
+    else if(scoreH < scoreC){
+        console.log(`You lose! ${com} beats ${hum}.`);
+        alert(`You lose! ${com} beats ${hum}.`);
+    }
+    else {
+        console.log("It's a tie!");
+        alert("It's a tie!");
+    }
+    prompt("Do you want to play again? (yes/no)", "yes").toLowerCase() === "yes" ? playRound() : alert("Thanks for playing!");
+}
