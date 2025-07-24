@@ -71,3 +71,7 @@ function getScore(scoreH, scoreC, hum, com) {
     }
     prompt("Do you want to play again? (yes/no)", "yes").toLowerCase() === "yes" ? playRound() : alert("Thanks for playing!");
 }
+
+//The game starts here
+alert("Welcome to Rock, Paper, Scissors!");
+playRound();
