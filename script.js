@@ -1,8 +1,9 @@
 //Functions:
 // playRound: Function to play a single round of Rock, Paper, Scissors
-// getScore: Returns the result of the round
+// getResults: Returns the result of the round
 // getComputerChoice: Function to randomly select Rock, Paper, or Scissors
 // getHumanChoice: Function to get the user's choice
+// updateScore: Function to update the scores based on the choices made
 
 function getComputerChoice() {
     const ch = ['rock', 'paper', 'scissors'];
@@ -11,67 +12,79 @@ function getComputerChoice() {
 }
 
 function getHumanChoice(){
-    let ch = prompt("Enter your choice: Rock, Paper, or Scissors");
-    if (ch === null) {
-        alert("EMPTY CHOICE");
-    }
+    var ch = prompt("Enter your choice: Rock, Paper or Scissors");
     ch = (ch.trim()).toLowerCase();
     if(ch === "rock" || ch === "paper" || ch === "scissors") {
-        return ch.charAt(0).toUpperCase() + ch.slice(1);
+        return ch;
     }
     else {        
         alert("Invalid choice. Please enter Rock, Paper, or Scissors.");
         return getHumanChoice();
     }
+    
+}
+
+function updateScore(hum, com){
+    if(hum === com){
+        scoreC++;
+        scoreH++;
+    }
+    else if(hum === "rock"){
+        if(com === "scissors"){
+            scoreH++;
+        }
+        else{
+            scoreC++; 
+        }
+    }
+    else if(hum === "paper"){
+        if(com === "rock"){
+            scoreH++;
+        }
+        else{
+            scoreC++;
+        }
+    }
+    else{
+        if(com === "paper"){
+            scoreH++;
+        }
+        else{
+            scoreC++;
+        }
+    }
 }
 
 function playRound(){
-    const hum = getHumanChoice();
-    const com = getComputerChoice();
-    let scoreH = 0, scoreC = 0;
-    if(hum === com){
-        scoreC++; scoreH++;
+    console.clear();
+    scoreH = 0;
+    scoreC = 0;
+    for(let i = 0; i < 5; i++) {
+        console.log(`Round ${i + 1}:`);
+        const com = getComputerChoice();
+        const hum = getHumanChoice();
+        updateScore(hum, com, scoreH, scoreC);
+        console.log(`Human: ${scoreH} \tComputer: ${scoreC}`);
     }
-    else if(hum === "Rock"){
-        if(com === "Scissors")
-            scoreH++;
-        
-        else if(com === "Paper")
-            scoreC++; 
-    }
-    else if(hum === "Paper"){
-        if(com === "Rock")
-            scoreH++;
-        
-        else if(com === "Scissors")
-            scoreC++;
-    }
-    else if(hum === "Scissors"){
-        if(com === "Paper")
-            scoreH++;
-        
-        else if(com === "Rock")
-            scoreC++;
-    }
-    return getScore(scoreH, scoreC, hum, com);
+    return getResults();
 }
 
-function getScore(scoreH, scoreC, hum, com) {
-    if(scoreH > scoreC){
-        console.log(`You win! ${hum} beats ${com}.`);
-        alert(`You win! ${hum} beats ${com}.`);
-    }
-    else if(scoreH < scoreC){
-        console.log(`You lose! ${com} beats ${hum}.`);
-        alert(`You lose! ${com} beats ${hum}.`);
-    }
-    else {
+function getResults() {
+    var diff = scoreH - scoreC;
+    if(diff === 0){
         console.log("It's a tie!");
-        alert("It's a tie!");
     }
-    prompt("Do you want to play again? (yes/no)", "yes").toLowerCase() === "yes" ? playRound() : alert("Thanks for playing!");
+    else if(diff > 0){
+        console.log(`You win by ${diff} ${diff > 1 ? "points" : "point"}!`);
+    }
+    else{
+        console.log(`You lose by ${Math.abs(diff)} ${diff < -1 ? "points" : "point"}.`);
+    }
+    prompt("Do you want to play again? (yes/no)", "yes") === "yes" ? playRound() : console.clear(); 
 }
+
 
 //The game starts here
-alert("Welcome to Rock, Paper, Scissors!");
+alert("Welcome to Rock, Paper, Scissors!\nLet's play for 5 rounds and see who wins!");
+var scoreC, scoreH;
 playRound();
