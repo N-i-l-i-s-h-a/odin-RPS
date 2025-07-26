@@ -56,7 +56,6 @@ function updateScore(hum, com){
 }
 
 function playRound(){
-    console.clear();
     scoreH = 0;
     scoreC = 0;
     for(let i = 0; i < 5; i++) {
@@ -80,7 +79,7 @@ function getResults() {
     else{
         console.log(`You lose by ${Math.abs(diff)} ${diff < -1 ? "points" : "point"}.`);
     }
-    prompt("Do you want to play again? (yes/no)", "yes") === "yes" ? playRound() : console.clear(); 
+    return prompt("Do you want to play again? (yes/no)", "yes") === "yes" ? playRound() : null; 
 }
 
 
