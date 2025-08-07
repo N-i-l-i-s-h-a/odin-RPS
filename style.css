@@ -22,7 +22,6 @@ h1{
     margin: 0 20px 0 20px;
 }
 button{
-    border: 0;
     background-color: bisque;
     margin: 16px;
     border: 2px dashed rgba(0, 0, 0, 0.507);

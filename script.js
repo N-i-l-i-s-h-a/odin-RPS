@@ -11,19 +11,6 @@ function getComputerChoice() {
     return ch[r % 3];
 }
 
-function getHumanChoice(){
-    var ch = prompt("Enter your choice: Rock, Paper or Scissors");
-    ch = (ch.trim()).toLowerCase();
-    if(ch === "rock" || ch === "paper" || ch === "scissors") {
-        return ch;
-    }
-    else {        
-        alert("Invalid choice. Please enter Rock, Paper, or Scissors.");
-        return getHumanChoice();
-    }
-    
-}
-
 function updateScore(hum, com){
     if(hum === com){
         scoreC++;
@@ -55,17 +42,30 @@ function updateScore(hum, com){
     }
 }
 
-function playRound(){
+function onStart(){
     scoreH = 0;
     scoreC = 0;
-    for(let i = 0; i < 5; i++) {
-        console.log(`Round ${i + 1}:`);
-        const com = getComputerChoice();
-        const hum = getHumanChoice();
-        updateScore(hum, com, scoreH, scoreC);
-        console.log(`Human: ${scoreH} \tComputer: ${scoreC}`);
-    }
-    return getResults();
+    let mid = document.querySelector("#middle");
+    mid.innerText = "";
+    let scoreBoard = document.createElement("div");
+    let human = document.createElement("div");
+    let machine = document.createElement("div");
+    scoreBoard.innerText = "SCORE";
+    human.innerText = `Human : ${scoreH}`;
+    machine.innerText = `Computer : ${scoreC}`;
+    scoreBoard.style.cssText = "font-size: 55px; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; border: 2px dashed black; border-radius: 20%; height: 400px; width: 500px;";
+    human.setAttribute("style", "font-size: 45px;");
+    machine.setAttribute("style", "font-size: 45px;");
+    scoreBoard.appendChild(human);
+    scoreBoard.appendChild(machine);
+    mid.appendChild(scoreBoard);
+}
+
+function playRound(){
+    const hum = document.querySelector(".btn").addEventListener('click', function(e){ return e.target.id; });
+    const com = getComputerChoice();
+    updateScore(hum, com, scoreH, scoreC);
+    onStart();
 }
 
 function getResults() {
@@ -82,7 +82,5 @@ function getResults() {
     return prompt("Do you want to play again? (yes/no)", "yes") === "yes" ? playRound() : null; 
 }
 
-
 //The game starts here
-alert("Welcome to Rock, Paper, Scissors!\nLet's play for 5 rounds and see who wins!");
 var scoreC, scoreH;
