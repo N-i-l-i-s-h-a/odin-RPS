@@ -47,3 +47,6 @@ img{
     border: 2px dashed rgba(0, 0, 0, 0.507);
     margin: 16px;
 }
+.selected{
+    border: 3px groove rgba(246, 190, 7, 1)
+}

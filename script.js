@@ -19,33 +19,60 @@ function getComputerChoice(){
 }
 
 function selSciss(){
+    const sel = document.querySelector("#scissors");
+    sel.classList.add("selected");
     let com = getComputerChoice();
-    if(com === "rock")
+    if(com === "rock"){
+        const selC = document.querySelector("#rockM");
+        selC.classList.add("selected");
         scoreM++;
-    else if(com === "paper")
+    }
+    else if(com === "paper"){
+        const selC = document.querySelector("#paperM");
+        selC.classList.add("selected");
         scoreH++;
+    }
     console.log(`com: ${com} \n hum: scissors`);
     displayScore();
+    sel.classList.remove("selected");
 }
 
 function selPaper(){
+    const sel = document.querySelector("#paper");
+    sel.classList.add("selected");
     let com = getComputerChoice();
-    if(com === "rock")
+    if(com === "rock"){
+        const selC = document.querySelector("#rockM");
+        selC.classList.add("selected");
         scoreH++;
-    else if(com === "scissors")
+    }
+    else if(com === "scissors"){
+        const selC = document.querySelector("#scissM");
+        selC.classList.add("selected");
         scoreM++;
+    }
     console.log(`com: ${com} \n hum: paper`);
     displayScore();
+    sel.classList.remove("selected");
 }
 
 function selRock(){
+    const sel = document.querySelector("#rock");
+    sel.classList.add("selected");
     let com = getComputerChoice();
-    if(com === "paper")
+    if(com === "paper"){
+        const selC = document.querySelector("#paperM");
+        selC.classList.add("selected");
         scoreM++;
-    else if(com === "scissors")
+    }
+    else if(com === "scissors"){
+        const selC = document.querySelector("#scissM");
+        selC.classList.add("selected");
         scoreH++;
+    }
     console.log(`com: ${com} \n hum: rock`);
     displayScore();
+    sel.classList.remove("selected");
 }
 
 function displayScore(){
