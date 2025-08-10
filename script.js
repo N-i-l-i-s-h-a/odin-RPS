@@ -5,12 +5,11 @@
 // random generator function
 
 var scoreH, scoreM;
-var hum, com;
 
 function onStart(){
     scoreH = 0;
     scoreM = 0;
-    playRound();
+    displayScore()
 }
 
 function getComputerChoice(){
@@ -19,36 +18,34 @@ function getComputerChoice(){
     return ch[r % 3];
 }
 
-function getChoice(e){
-    hum = e.target.id;
+function selSciss(){
+    let com = getComputerChoice();
+    if(com === "rock")
+        scoreM++;
+    else if(com === "paper")
+        scoreH++;
+    console.log(`com: ${com} \n hum: scissors`);
+    displayScore();
 }
 
-function playRound(){
+function selPaper(){
+    let com = getComputerChoice();
+    if(com === "rock")
+        scoreH++;
+    else if(com === "scissors")
+        scoreM++;
+    console.log(`com: ${com} \n hum: paper`);
     displayScore();
-    const list = document.querySelectorAll(".btn");
-    for(let i = 0; i < 5; i++){  
-        list.forEach(function(btn){
-            btn.addEventListener('click', () => getChoice(e));
-        });
-        com = getComputerChoice();
-        if(com === "rock" && hum == "paper")
-            scoreH++;
-        else if(com === "rock" && hum === "scissors")
-            scoreM++;
-        else if(com === "paper" && hum === "scissors")
-            scoreH++;
-        else if(com === "paper" && hum === "rock")
-            scoreM++;
-        else if(com === "scissors" && hum === "rock")
-            scoreH++;
-        else if(com === "scissors" && hum === "paper")
-            scoreM++;
-        else{
-            scoreM++;
-            scoreH++;
-        }
-        displayScore();
-    }
+}
+
+function selRock(){
+    let com = getComputerChoice();
+    if(com === "paper")
+        scoreM++;
+    else if(com === "scissors")
+        scoreH++;
+    console.log(`com: ${com} \n hum: rock`);
+    displayScore();
 }
 
 function displayScore(){
@@ -69,5 +66,27 @@ function displayScore(){
     human.style.cssText = "font-size: 45px;";
     machine.style.cssText = "font-size: 45px;";
     mid.appendChild(scoreBoard);
-    return;
+    if(scoreM === 5 && scoreH === 5){
+        displayRes("Tie");
+    }
+    if(scoreH === 5){
+        displayRes("Computer");
+    }
+    if(scoreM === 5){
+        displayRes("Human");
+    }
+}
+
+function displayRes(winner){
+    const mid = document.querySelector("#middle");
+    mid.innerText = "";
+    var scoreBoard = document.createElement("div");
+    if(winner === "Tie"){
+        scoreBoard.innerText = "It's a tie!";
+    }
+    else{
+        scoreBoard.innerText = `${winner} won!`;
+    }
+    scoreBoard.style.cssText = "font-size: 45px; width: 300px; height: 200px; background-color: rgba(102, 165, 43, 0.45); padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; justify-content: center; align-items: center;";
+    mid.appendChild(scoreBoard);
 }
