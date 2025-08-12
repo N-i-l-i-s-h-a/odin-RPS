@@ -8,6 +8,10 @@ var scoreH, scoreM;
 var sel = null, selC = null;
 
 function onStart(){
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected"); 
+    }
     scoreH = 0;
     scoreM = 0;
     const rock = document.querySelector("#rock");
@@ -120,7 +124,7 @@ function displayScore(){
     score.innerText = "SCORE";
     human.innerText = `Human : ${scoreH}`;
     machine.innerText = `Computer : ${scoreM}`;
-    scoreBoard.style.cssText = "width: 300px; height: 300px; background-color: bisque; padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;";
+    scoreBoard.style.cssText = "width: 400px; height: 400px; background-color: bisque; padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;";
     score.style.cssText = "font-size: 55px; background-color: bisque;";
     human.style.cssText = "font-size: 45px; background-color: bisque; ";
     machine.style.cssText = "font-size: 45px; background-color: bisque; ";
@@ -146,10 +150,6 @@ function displayScore(){
 }
 
 function endGame(){
-    if(sel != null && selC != null){
-        sel.classList.remove("selected");
-        selC.classList.remove("selected"); 
-    }
     const scoreBoard = document.querySelector("#middle>div");
     const restart = document.createElement("button");
     restart.setAttribute("id", "restart");
@@ -163,7 +163,7 @@ function endGame(){
     const rock = document.querySelector("#rock");
     const paper = document.querySelector("#paper");
     const sciss = document.querySelector("#scissors");
-    rock.setAttribute("onclick", "() => null");
-    paper.setAttribute("onclick", "() => null");
-    sciss.setAttribute("onclick", "() => null");
+    rock.removeAttribute("onclick");
+    paper.removeAttribute("onclick");
+    sciss.removeAttribute("onclick");
 }
