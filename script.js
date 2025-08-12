@@ -19,11 +19,15 @@ function getComputerChoice(){
     return ch[r % 3];
 }
 
-function selSciss(){
+function deselect(){
     if(sel != null && selC != null){
         sel.classList.remove("selected");
         selC.classList.remove("selected");
     }
+}
+
+function selSciss(){
+    deselect();
     sel = document.querySelector("#scissors");
     sel.classList.add("selected");
 
@@ -46,10 +50,7 @@ function selSciss(){
 }
 
 function selPaper(){
-    if(sel != null && selC != null){
-        sel.classList.remove("selected");
-        selC.classList.remove("selected");
-    }
+    deselect();
     sel = document.querySelector("#paper");
     sel.classList.add("selected");
 
@@ -72,11 +73,7 @@ function selPaper(){
 }
 
 function selRock(){
-    if(sel != null && selC != null){
-        sel.classList.remove("selected");
-        selC.classList.remove("selected");
-    }
-
+    deselect();
     sel = document.querySelector("#rock");
     sel.classList.add("selected");
 
