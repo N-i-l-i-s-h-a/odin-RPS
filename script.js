@@ -28,6 +28,9 @@ function deselect(){
 
 function selSciss(){
     deselect();
+    if(scoreH === undefined){
+        onStart();
+    }
     sel = document.querySelector("#scissors");
     sel.classList.add("selected");
 
@@ -51,6 +54,9 @@ function selSciss(){
 
 function selPaper(){
     deselect();
+    if(scoreH === undefined){
+        onStart();
+    }
     sel = document.querySelector("#paper");
     sel.classList.add("selected");
 
@@ -74,6 +80,9 @@ function selPaper(){
 
 function selRock(){
     deselect();
+    if(scoreH === undefined){
+        onStart();
+    }
     sel = document.querySelector("#rock");
     sel.classList.add("selected");
 
