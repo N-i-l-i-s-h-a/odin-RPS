@@ -5,6 +5,7 @@
 // random generator function
 
 var scoreH, scoreM;
+var sel = null, selC = null;
 
 function onStart(){
     scoreH = 0;
@@ -19,60 +20,82 @@ function getComputerChoice(){
 }
 
 function selSciss(){
-    const sel = document.querySelector("#scissors");
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected");
+    }
+    sel = document.querySelector("#scissors");
     sel.classList.add("selected");
+
     let com = getComputerChoice();
+
     if(com === "rock"){
-        const selC = document.querySelector("#rockM");
-        selC.classList.add("selected");
+        selC = document.querySelector("#rockM");
         scoreM++;
     }
     else if(com === "paper"){
-        const selC = document.querySelector("#paperM");
-        selC.classList.add("selected");
+        selC = document.querySelector("#paperM");
         scoreH++;
     }
-    console.log(`com: ${com} \n hum: scissors`);
+    else{
+        selC = document.querySelector("#scissM");
+    }
+
+    selC.classList.add("selected");
     displayScore();
-    sel.classList.remove("selected");
 }
 
 function selPaper(){
-    const sel = document.querySelector("#paper");
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected");
+    }
+    sel = document.querySelector("#paper");
     sel.classList.add("selected");
+
     let com = getComputerChoice();
+
     if(com === "rock"){
-        const selC = document.querySelector("#rockM");
-        selC.classList.add("selected");
+        selC = document.querySelector("#rockM");
         scoreH++;
     }
     else if(com === "scissors"){
-        const selC = document.querySelector("#scissM");
-        selC.classList.add("selected");
+        selC = document.querySelector("#scissM");
         scoreM++;
     }
-    console.log(`com: ${com} \n hum: paper`);
+    else{
+        selC = document.querySelector("#paperM");
+    }
+
+    selC.classList.add("selected");
     displayScore();
-    sel.classList.remove("selected");
 }
 
 function selRock(){
-    const sel = document.querySelector("#rock");
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected");
+    }
+
+    sel = document.querySelector("#rock");
     sel.classList.add("selected");
+
     let com = getComputerChoice();
+
     if(com === "paper"){
-        const selC = document.querySelector("#paperM");
-        selC.classList.add("selected");
+        selC = document.querySelector("#paperM");
         scoreM++;
     }
     else if(com === "scissors"){
-        const selC = document.querySelector("#scissM");
-        selC.classList.add("selected");
+        selC = document.querySelector("#scissM");
         scoreH++;
     }
-    console.log(`com: ${com} \n hum: rock`);
+    else{
+        selC = document.querySelector("#rockM");
+    }
+
+    selC.classList.add("selected");
     displayScore();
-    sel.classList.remove("selected");
 }
 
 function displayScore(){
@@ -84,36 +107,45 @@ function displayScore(){
     var machine = document.createElement("div");
     score.innerText = "SCORE";
     human.innerText = `Human : ${scoreH}`;
-    machine.innerText = `Machine : ${scoreM}`;
+    machine.innerText = `Computer : ${scoreM}`;
+    scoreBoard.style.cssText = "width: 300px; height: 300px; background-color: bisque; padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;";
+    score.style.cssText = "font-size: 55px; background-color: bisque;";
+    human.style.cssText = "font-size: 45px; background-color: bisque; ";
+    machine.style.cssText = "font-size: 45px; background-color: bisque; ";
     scoreBoard.appendChild(score);
     scoreBoard.appendChild(human);
     scoreBoard.appendChild(machine);
-    scoreBoard.style.cssText = "width: 300px; height: 300px; background-color: bisque; padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;";
-    score.style.cssText = "font-size: 55px;";
-    human.style.cssText = "font-size: 45px;";
-    machine.style.cssText = "font-size: 45px;";
     mid.appendChild(scoreBoard);
     if(scoreM === 5 && scoreH === 5){
-        displayRes("Tie");
+        score.innerText = "It's a tie!";
+        score.style.cssText = "color: rgb(8, 111, 214); font-size: 50px; background-color: bisque;";
+        return endGame();
     }
     if(scoreH === 5){
-        displayRes("Computer");
+        score.innerText = "You won!";
+        score.style.cssText = "color: rgb(8, 111, 214); font-size: 50px; background-color: bisque;";
+        return endGame();
     }
     if(scoreM === 5){
-        displayRes("Human");
+        score.innerText = "Computer won!";
+        score.style.cssText = "color: rgb(8, 111, 214); font-size: 50px; background-color: bisque;";
+        return endGame();
     }
 }
 
-function displayRes(winner){
-    const mid = document.querySelector("#middle");
-    mid.innerText = "";
-    var scoreBoard = document.createElement("div");
-    if(winner === "Tie"){
-        scoreBoard.innerText = "It's a tie!";
+function endGame(){
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected"); 
     }
-    else{
-        scoreBoard.innerText = `${winner} won!`;
-    }
-    scoreBoard.style.cssText = "font-size: 45px; width: 300px; height: 200px; background-color: rgba(102, 165, 43, 0.45); padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; justify-content: center; align-items: center;";
-    mid.appendChild(scoreBoard);
+    const scoreBoard = document.querySelector("#middle>div");
+    const restart = document.createElement("button");
+    restart.setAttribute("id", "restart");
+    restart.style.cssText = "background-color: bisque; margin-top: 16px;";
+    restart.setAttribute("onclick", "onStart()");
+    const img = document.createElement("img");
+    img.setAttribute("src", "assets/redopx.png");
+    img.style.cssText = "height: 48px; width: 48px; background-color: bisque;";
+    restart.appendChild(img);
+    scoreBoard.appendChild(restart);
 }
