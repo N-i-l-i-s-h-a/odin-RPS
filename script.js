@@ -10,6 +10,12 @@ var sel = null, selC = null;
 function onStart(){
     scoreH = 0;
     scoreM = 0;
+    const rock = document.querySelector("#rock");
+    const paper = document.querySelector("#paper");
+    const sciss = document.querySelector("#scissors");
+    rock.setAttribute("onclick", "selRock()");
+    paper.setAttribute("onclick", "selPaper()");
+    sciss.setAttribute("onclick", "selSciss()");
     displayScore()
 }
 
@@ -154,4 +160,10 @@ function endGame(){
     img.style.cssText = "height: 48px; width: 48px; background-color: bisque;";
     restart.appendChild(img);
     scoreBoard.appendChild(restart);
+    const rock = document.querySelector("#rock");
+    const paper = document.querySelector("#paper");
+    const sciss = document.querySelector("#scissors");
+    rock.setAttribute("onclick", "() => null");
+    paper.setAttribute("onclick", "() => null");
+    sciss.setAttribute("onclick", "() => null");
 }
