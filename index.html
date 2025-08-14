@@ -4,8 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel = "stylesheet" href = "style.css">
 </head>
 <body>
+    <h1>ROCK, PAPER, SCISSORS!</h1>
+    <div class = "hero"> 
+        <div id = "player">
+            <h2>You</h2>
+            <button id = "rock" onclick = "selRock()"><img  src = "assets/rockpx.png"></button>
+            <button id = "paper" onclick = "selPaper()"><img src = "assets/paperpx.png"></button>
+            <button id = "scissors" onclick = "selSciss()"><img src = "assets/scispx.png"></button>
+        </div>
+        <div id = "middle"> <button id = "start" onclick = "onStart()">START</button></div>
+        <div id = "machine">
+            <h2>Computer</h2>
+            <button id = "rockM"><img  src = "assets/rockpx.png"></button>
+            <button id = "paperM"><img src = "assets/paperpx.png"></button>
+            <button id = "scissM"><img src = "assets/scispx.png"></button>
+        </div>
+    </div>
     <script src = "script.js"></script>
+    <footer>Copyright ©<a href="https://github.com/N-i-l-i-s-h-a" target="_blank"> Nilisha</a></footer>
 </body>
 </html>

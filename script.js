@@ -1,89 +1,169 @@
-//Functions:
-// playRound: Function to play a single round of Rock, Paper, Scissors
-// getResults: Returns the result of the round
-// getComputerChoice: Function to randomly select Rock, Paper, or Scissors
-// getHumanChoice: Function to get the user's choice
-// updateScore: Function to update the scores based on the choices made
+//onStart() : to initialize scores to zero
+//displayScore() : fired when start is clicked
+//updateScore() : updates the scoreboard according to humanChoice and machiineChoice, fired when any button is clicked
+//getComputerChoice() : 
+// random generator function
 
-function getComputerChoice() {
+var scoreH, scoreM;
+var sel = null, selC = null;
+
+function onStart(){
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected"); 
+    }
+    scoreH = 0;
+    scoreM = 0;
+    const rock = document.querySelector("#rock");
+    const paper = document.querySelector("#paper");
+    const sciss = document.querySelector("#scissors");
+    rock.setAttribute("onclick", "selRock()");
+    paper.setAttribute("onclick", "selPaper()");
+    sciss.setAttribute("onclick", "selSciss()");
+    displayScore()
+}
+
+function getComputerChoice(){
     const ch = ['rock', 'paper', 'scissors'];
     const r = Math.floor(Math.random() * 10);
     return ch[r % 3];
 }
 
-function getHumanChoice(){
-    var ch = prompt("Enter your choice: Rock, Paper or Scissors");
-    ch = (ch.trim()).toLowerCase();
-    if(ch === "rock" || ch === "paper" || ch === "scissors") {
-        return ch;
+function deselect(){
+    if(sel != null && selC != null){
+        sel.classList.remove("selected");
+        selC.classList.remove("selected");
     }
-    else {        
-        alert("Invalid choice. Please enter Rock, Paper, or Scissors.");
-        return getHumanChoice();
-    }
-    
 }
 
-function updateScore(hum, com){
-    if(hum === com){
-        scoreC++;
+function selSciss(){
+    deselect();
+    if(scoreH === undefined){
+        onStart();
+    }
+    sel = document.querySelector("#scissors");
+    sel.classList.add("selected");
+
+    let com = getComputerChoice();
+
+    if(com === "rock"){
+        selC = document.querySelector("#rockM");
+        scoreM++;
+    }
+    else if(com === "paper"){
+        selC = document.querySelector("#paperM");
         scoreH++;
     }
-    else if(hum === "rock"){
-        if(com === "scissors"){
-            scoreH++;
-        }
-        else{
-            scoreC++; 
-        }
+    else{
+        selC = document.querySelector("#scissM");
     }
-    else if(hum === "paper"){
-        if(com === "rock"){
-            scoreH++;
-        }
-        else{
-            scoreC++;
-        }
+
+    selC.classList.add("selected");
+    displayScore();
+}
+
+function selPaper(){
+    deselect();
+    if(scoreH === undefined){
+        onStart();
+    }
+    sel = document.querySelector("#paper");
+    sel.classList.add("selected");
+
+    let com = getComputerChoice();
+
+    if(com === "rock"){
+        selC = document.querySelector("#rockM");
+        scoreH++;
+    }
+    else if(com === "scissors"){
+        selC = document.querySelector("#scissM");
+        scoreM++;
     }
     else{
-        if(com === "paper"){
-            scoreH++;
-        }
-        else{
-            scoreC++;
-        }
+        selC = document.querySelector("#paperM");
     }
+
+    selC.classList.add("selected");
+    displayScore();
 }
 
-function playRound(){
-    scoreH = 0;
-    scoreC = 0;
-    for(let i = 0; i < 5; i++) {
-        console.log(`Round ${i + 1}:`);
-        const com = getComputerChoice();
-        const hum = getHumanChoice();
-        updateScore(hum, com, scoreH, scoreC);
-        console.log(`Human: ${scoreH} \tComputer: ${scoreC}`);
+function selRock(){
+    deselect();
+    if(scoreH === undefined){
+        onStart();
     }
-    return getResults();
-}
+    sel = document.querySelector("#rock");
+    sel.classList.add("selected");
 
-function getResults() {
-    var diff = scoreH - scoreC;
-    if(diff === 0){
-        console.log("It's a tie!");
+    let com = getComputerChoice();
+
+    if(com === "paper"){
+        selC = document.querySelector("#paperM");
+        scoreM++;
     }
-    else if(diff > 0){
-        console.log(`You win by ${diff} ${diff > 1 ? "points" : "point"}!`);
+    else if(com === "scissors"){
+        selC = document.querySelector("#scissM");
+        scoreH++;
     }
     else{
-        console.log(`You lose by ${Math.abs(diff)} ${diff < -1 ? "points" : "point"}.`);
+        selC = document.querySelector("#rockM");
     }
-    return prompt("Do you want to play again? (yes/no)", "yes") === "yes" ? playRound() : null; 
+
+    selC.classList.add("selected");
+    displayScore();
 }
 
+function displayScore(){
+    const mid = document.querySelector("#middle");
+    mid.innerText = "";
+    var scoreBoard = document.createElement("div");
+    var score = document.createElement("div");
+    var human = document.createElement("div");
+    var machine = document.createElement("div");
+    score.innerText = "SCORE";
+    human.innerText = `Human : ${scoreH}`;
+    machine.innerText = `Computer : ${scoreM}`;
+    scoreBoard.style.cssText = "width: 400px; height: 400px; background-color: bisque; padding: 0px 16px 0px 16px; border: 2px dashed rgba(0, 0, 0, 0.507); border-radius: 10%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;";
+    score.style.cssText = "font-size: 55px; background-color: bisque;";
+    human.style.cssText = "font-size: 45px; background-color: bisque; ";
+    machine.style.cssText = "font-size: 45px; background-color: bisque; ";
+    scoreBoard.appendChild(score);
+    scoreBoard.appendChild(human);
+    scoreBoard.appendChild(machine);
+    mid.appendChild(scoreBoard);
+    if(scoreM === 5 && scoreH === 5){
+        score.innerText = "It's a tie!";
+        score.style.cssText = "color: rgb(8, 111, 214); font-size: 50px; background-color: bisque;";
+        return endGame();
+    }
+    if(scoreH === 5){
+        score.innerText = "You won!";
+        score.style.cssText = "color: rgb(8, 111, 214); font-size: 50px; background-color: bisque;";
+        return endGame();
+    }
+    if(scoreM === 5){
+        score.innerText = "Computer won!";
+        score.style.cssText = "color: rgb(8, 111, 214); font-size: 50px; background-color: bisque;";
+        return endGame();
+    }
+}
 
-//The game starts here
-alert("Welcome to Rock, Paper, Scissors!\nLet's play for 5 rounds and see who wins!");
-var scoreC, scoreH;
-playRound();
+function endGame(){
+    const scoreBoard = document.querySelector("#middle>div");
+    const restart = document.createElement("button");
+    restart.setAttribute("id", "restart");
+    restart.style.cssText = "background-color: bisque; margin-top: 16px;";
+    restart.setAttribute("onclick", "onStart()");
+    const img = document.createElement("img");
+    img.setAttribute("src", "assets/redopx.png");
+    img.style.cssText = "height: 48px; width: 48px; background-color: bisque;";
+    restart.appendChild(img);
+    scoreBoard.appendChild(restart);
+    const rock = document.querySelector("#rock");
+    const paper = document.querySelector("#paper");
+    const sciss = document.querySelector("#scissors");
+    rock.removeAttribute("onclick");
+    paper.removeAttribute("onclick");
+    sciss.removeAttribute("onclick");
+}
