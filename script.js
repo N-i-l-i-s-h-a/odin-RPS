@@ -86,3 +86,4 @@ function getResults() {
 //The game starts here
 alert("Welcome to Rock, Paper, Scissors!\nLet's play for 5 rounds and see who wins!");
 var scoreC, scoreH;
+playRound();
