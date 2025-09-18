@@ -10,7 +10,7 @@ Odin-RPS is a Rock-Paper-Scissors game built as part of The Odin Project curricu
 - The game determines the winner or indicates a draw after each round  
 - Score tracking across multiple rounds  
 - Reset option to start a new game and clear scores  
-- Simple user interface designed for clarity and responsive behavior  
+- Simple user interface designed for clarity 
 
 ## Link
 [rock-paper-scissors](https://n-i-l-i-s-h-a.github.io/odin-RPS/)
